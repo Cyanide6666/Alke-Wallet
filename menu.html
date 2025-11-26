@@ -34,15 +34,16 @@
     }
 
     .card-design {
-    position: absolute;
-    bottom: 10px;  
-    right: 50px;   
-    width: 180px;  
-    height: 180px; 
-    opacity: 0.4; 
-    pointer-events: none;
-    z-index: 1;    /* Esto asegura que esté sobre el fondo */
-}
+      position: absolute;
+      bottom: 10px;
+      right: 50px;
+      width: 180px;
+      height: 180px;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 1;
+      /* Esto asegura que esté sobre el fondo */
+    }
 
     .virtual-card::before {
       content: '';
@@ -196,15 +197,15 @@
     <img src="https://www.pngall.com/wp-content/uploads/13/My-Melody-PNG-Picture.png" alt="mymelody-logo"
       class="card-design">
     <div class="balance-label">Tu saldo es</div>
-    <div class="balance-amount">$21,050</div>
-    <div class="balance-label">ALKE Points: 2,105</div>
+    <div class="balance-amount">$60.000</div>
+    <div class="balance-label">ALKE Points: 6.666</div>
   </div>
 
   <!-- Acciones rápidas en menú -->
   <div class="quick-actions">
-    <a href="depositar.html" class="action-btn">
-        <i class="bi bi-plus-circle action-icon"></i>
-        <span class="action-label">Depositar</span>
+    <a href="deposit.html" class="action-btn">
+      <i class="bi bi-plus-circle action-icon"></i>
+      <span class="action-label">Depositar</span>
     </a>
     <a href="sendmoney.html" class="action-btn">
       <i class="bi bi-arrow-up-circle action-icon"></i>
@@ -214,40 +215,40 @@
 
   <!-- Menú Simple -->
   <div class="simple-menu">
-    <a href="#" class="menu-item">
+    <a href="https://i.imgflip.com/33u1j6.jpg" class="menu-item">
       <div class="menu-icon"><i class="bi bi-credit-card"></i></div>
       <div class="menu-text">Mis tarjetas</div>
     </a>
-    <a href="#" class="menu-item">
+    <a href="transacciones.html" class="menu-item">
       <div class="menu-icon"><i class="bi bi-clock-history"></i></div>
       <div class="menu-text">Transacciones</div>
     </a>
-    <a href="#" class="menu-item">
+    <a href="https://i.imgflip.com/33u1j6.jpg" class="menu-item">
       <div class="menu-icon"><i class="bi bi-gear"></i></div>
       <div class="menu-text">Configuración</div>
   </div>
 
   <script>
     // Actualizar saldo desde localStorage
-function updateWalletBalance() {
-    const savedBalance = localStorage.getItem('alkeWalletBalance');
-    const lastDeposit = localStorage.getItem('lastDeposit');
-    
-    if (savedBalance) {
-        document.querySelector('.balance-amount').textContent = `$${parseInt(savedBalance).toLocaleString()}`;
-    }
-    
-    // Mostrar notificación de último depósito (opcional)
-    if (lastDeposit) {
-        setTimeout(() => {
-            alert(`✅ Depósito de $${lastDeposit} realizado exitosamente`);
-            localStorage.removeItem('lastDeposit'); // Limpiar después de mostrar
-        }, 500);
-    }
-}
+    function updateWalletBalance() {
+      const savedBalance = localStorage.getItem('alkeWalletBalance');
+      const lastDeposit = localStorage.getItem('lastDeposit');
 
-// Llamar cuando la página cargue
-document.addEventListener('DOMContentLoaded', updateWalletBalance);
+      if (savedBalance) {
+        document.querySelector('.balance-amount').textContent = `$${parseInt(savedBalance).toLocaleString()}`;
+      }
+
+      // Mostrar notificación de último depósito (opcional)
+      if (lastDeposit) {
+        setTimeout(() => {
+          alert(`✅ Depósito de $${lastDeposit} realizado exitosamente`);
+          localStorage.removeItem('lastDeposit'); // Limpiar después de mostrar
+        }, 500);
+      }
+    }
+
+    // Llamar cuando la página cargue
+    document.addEventListener('DOMContentLoaded', updateWalletBalance);
   </script>
 </body>
 

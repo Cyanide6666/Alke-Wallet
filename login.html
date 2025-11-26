@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +59,7 @@
         .text-alke {
             color: #d1aac9;
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .text-wallet {
@@ -164,8 +165,7 @@
 
         <!-- Logo cinnamoroll jijiji y Título de app -->
         <div class="logo">
-            <img src="https://media.tenor.com/qslUlaGUdEwAAAAj/cinnamoroll-cute.gif" 
-                 alt="Cinnamoroll Wallet">
+            <img src="https://media.tenor.com/qslUlaGUdEwAAAAj/cinnamoroll-cute.gif" alt="Cinnamoroll Wallet">
             <h1>
                 <span class="text-alke">ALKE</span>
                 <span class="text-wallet">Wallet</span>
@@ -186,7 +186,8 @@
                 <label for="email" class="form-label">Correo Electrónico 🍒</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" placeholder="cinnamoroll666@ejemplo.com" required>
+                    <input type="email" class="form-control" id="email" placeholder="cinnamoroll666@ejemplo.com"
+                        required>
                 </div>
                 <div class="form-text text-muted" id="email-help"></div>
             </div>
@@ -196,7 +197,8 @@
                 <label for="password" class="form-label">Contraseña 🍓</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                    <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
+                    <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña"
+                        required>
                     <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                         <i class="bi bi-eye"></i>
                     </button>
@@ -233,9 +235,11 @@
 
             <!-- Botones Sociales -->
             <div class="d-flex gap-2 mb-3">
-                <a href="https://myaccount.google.com/" class="btn social-btn flex-fill" target="_blank">
-                    Google
+                <!-- En login.html, reemplaza el botón de Google actual por: -->
+                <a href="#" class="btn social-btn flex-fill" id="googleLogin" target="_blank">
+                    <i class="bi bi-google me-2"></i>Google
                 </a>
+
                 <a href="https://x.com/i/flow/login" class="btn social-btn flex-fill" target="_blank">
                     Twitter
                 </a>
@@ -243,7 +247,7 @@
 
             <!-- Enlace Registro -->
             <div class="text-center mb-3">
-                <p class="text-muted">¿No tienes una cuenta? 
+                <p class="text-muted">¿No tienes una cuenta?
                     <a href="registro.html" class="text-decoration-none" style="color: #db69b5; font-weight: 500;">
                         Regístrate aquí
                     </a>
@@ -367,7 +371,13 @@
                     // Mostrar mensaje de éxito
                     showAlert('¡Inicio de sesión exitoso! Redirigiendo a tu wallet...', 'success');
                 }, 2000);
+
+                setTimeout(function () {
+                    // Redirigir al menú principal después del login exitoso
+                    window.location.href = 'menu.html';
+                }, 2000);
             });
+
 
             // Enlace de olvidé contraseña
             $('#forgot-password').click(function (e) {
@@ -400,4 +410,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -181,7 +181,7 @@
                                     alt="Kuromi Wallet" class="logo-image">
                             </div>
                         </div>
-                        
+
                         <h3 class="form-title mb-2">¡Bienvenido a ALKE Wallet! 💜</h3>
                         <p class="form-subtitle mb-0">Crear nueva cuenta</p>
                     </div>
@@ -256,6 +256,19 @@
                 alert('Formulario enviado correctamente');
                 // En una implementación real, aquí enviarías los datos al servidor
             });
+        });
+        // Modificar el evento submit del formulario:
+        $('#registroForm').submit(function (e) {
+            e.preventDefault();
+
+            // Validación de campos 
+            // Simular registro exitoso
+            alert('¡Cuenta creada exitosamente! Serás redirigido al login.');
+
+            // Redirigir al login después de 2 segundos
+            setTimeout(function () {
+                window.location.href = 'login.html';
+            }, 2000);
         });
     </script>
 </body>

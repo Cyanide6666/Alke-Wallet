@@ -406,7 +406,7 @@
             modal.show();
         }
 
-        // Función para agregar un nuevo contacto - CORREGIDA
+        // Reemplazar la función addNewContact con esta versión corregida:
         function addNewContact() {
             const name = document.getElementById('contactName').value;
             const bank_account = document.getElementById('contactBankAccount').value;
@@ -430,7 +430,9 @@
             localStorage.setItem('alkeWalletContacts', JSON.stringify(contacts));
 
             // Cerrar modal y recargar lista de contactos
-            bootstrap.Modal.getInstance(document.getElementById('addContactModal')).hide();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addContactModal'));
+            modal.hide();
+
             loadContacts();
 
             // Limpiar formulario
@@ -438,8 +440,7 @@
 
             alert(`Contacto ${name} agregado correctamente`);
         }
-
-        // Función para cargar contactos - CORREGIDA
+        // Función para cargar contactos  
         function loadContacts() {
             const contactList = document.getElementById('contactList');
             contactList.innerHTML = '';
@@ -504,7 +505,7 @@
                 console.log('💰 Saldo por defecto:', currentBalance);
             }
 
-            /// BORRAR CONTACTOS VIEJOS PARA PRUEBAS
+            /// BORRAR CONTACTOS VIEJOS (SOLO PARA PRUEBAS BRO)
             ///localStorage.removeItem('alkeWalletContacts');
 
             // Cargar contactos desde localStorage
