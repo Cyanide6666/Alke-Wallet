@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depositar - ALKE Wallet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --alke-primary: #d1aac9;
+            --alke-secondary: #f782d0;
+            ;
+            --alke-dark: #b283e7;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .deposit-card {
+            background: linear-gradient(135deg, #faf8fa 0%, #eeace0 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--alke-primary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .amount-input {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .amount-input:focus {
+            border-color: var(--alke-primary);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .amount-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .amount-btn:hover {
+            background: var(--alke-primary);
+            color: white;
+            border-color: var(--alke-primary);
+        }
+
+        .deposit-btn {
+            background: var(--alke-primary);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .deposit-btn:hover {
+            background: var(--alke-dark);
+            transform: translateY(-2px);
+        }
+
+        .payment-methods {
+            margin: 25px 0;
+        }
+
+        .method-btn {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .method-btn.active {
+            border-color: var(--alke-primary);
+            background: #e3f2fd;
+        }
+
+        .method-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--alke-primary);
+        }
+
+        .wallet-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .wallet-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--alke-primary) 15%, var(--alke-secondary) 90%, var(--alke-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-image {
+            width: 90px;
+            height: 90px;
+            border-radius: 10px;
+            object-fit: contain; /* Para que no se deforme */
+        }
+
+        .wallet-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .wallet-header h4 {
+            margin: 10px 0 5px 0;
+        }
+
+        .wallet-header p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="deposit-card">
+        <button class="back-btn" onclick="window.history.back()">
+            <i class="bi bi-arrow-left"></i> Volver
+        </button>
+
+        <div class="wallet-header text-center">
+
+            <!-- Logo y la imagen EN LA MISMA LÍNEAAAAAAA -->
+            <div class="d-flex align-items-center justify-content-center mb-3">
+                <span class="logo-text">ALKE Wallet</span>
+                <img src="https://www.gifcen.com/wp-content/uploads/2021/10/kuromi-gif-10.gif" alt="kuromi-Logo"
+                    class="logo-image">
+            </div>
+
+            <h4>Depositar Dinero 💋</h4>
+            <p class="text-muted">Agrega fondos a tu wallet</p>
+        </div>
+
+        <!-- Monto -->
+        <div class="mb-4">
+            <label for="amount" class="form-label fw-bold">Monto a depositar</label>
+            <input type="number" class="form-control amount-input" id="amount" placeholder="$0" min="1" step="1">
+        </div>
+
+        <!-- Montos rápidos -->
+        <div class="quick-amounts">
+            <button class="amount-btn" onclick="setAmount(1000)">$1.000</button>
+            <button class="amount-btn" onclick="setAmount(5000)">$5.000</button>
+            <button class="amount-btn" onclick="setAmount(10000)">$10.000</button>
+            <button class="amount-btn" onclick="setAmount(20000)">$20.000</button>
+            <button class="amount-btn" onclick="setAmount(50000)">$50.000</button>
+            <button class="amount-btn" onclick="setAmount(100000)">$100.000</button>
+
+        </div>
+
+        <!-- Métodos de pago -->
+        <div class="payment-methods">
+            <h6 class="fw-bold mb-3">Método de pago</h6>
+
+            <div class="method-btn active" onclick="selectMethod('card')">
+                <i class="bi bi-credit-card method-icon"></i>
+                <div>
+                    <div class="fw-bold">Tarjeta de crédito/débito</div>
+                    <small class="text-muted">Visa, Mastercard, etc.</small>
+                </div>
+            </div>
+
+            <div class="method-btn" onclick="selectMethod('transfer')">
+                <i class="bi bi-bank method-icon"></i>
+                <div>
+                    <div class="fw-bold">Transferencia bancaria</div>
+                    <small class="text-muted">Desde tu banco</small>
+                </div>
+            </div>
+
+            <div class="method-btn" onclick="selectMethod('cash')">
+                <i class="bi bi-cash-coin method-icon"></i>
+                <div>
+                    <div class="fw-bold">Pago en efectivo</div>
+                    <small class="text-muted">Puntos de pago autorizados</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de depósito -->
+        <button class="deposit-btn" onclick="processDeposit()">
+            <i class="bi bi-plus-circle me-2"></i>
+            Depositar
+        </button>
+    </div>
+
+    <script>
+        let selectedMethod = 'card';
+        let currentBalance = 21050; // Saldo actual
+
+        function setAmount(amount) {
+            document.getElementById('amount').value = amount;
+            updateDepositButton(amount);
+        }
+
+        function selectMethod(method) {
+            selectedMethod = method;
+
+            // Remover clase active de todos
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Agregar clase active al seleccionado
+            event.currentTarget.classList.add('active');
+        }
+
+        function updateDepositButton(amount) {
+            const depositBtn = document.querySelector('.deposit-btn');
+
+            if (amount && amount > 0) {
+                const newBalance = currentBalance + parseInt(amount);
+                depositBtn.innerHTML =
+                    `<i class="bi bi-plus-circle me-2"></i>Depositar $${amount} (Nuevo saldo: $${newBalance.toLocaleString()})`;
+            } else {
+                depositBtn.innerHTML =
+                    `<i class="bi bi-plus-circle me-2"></i>Depositar`;
+            }
+        }
+
+        function updateBalanceInRealTime() {
+            const amountInput = document.getElementById('amount');
+
+            amountInput.addEventListener('input', function () {
+                updateDepositButton(this.value);
+            });
+        }
+
+        function processDeposit() {
+            const amount = document.getElementById('amount').value;
+
+            if (!amount || amount <= 0) {
+                alert('Por favor ingresa un monto válido');
+                return;
+            }
+
+            // Guardar el nuevo saldo en localStorage
+            const newBalance = currentBalance + parseInt(amount);
+            localStorage.setItem('alkeWalletBalance', newBalance.toString());
+            localStorage.setItem('lastDeposit', amount);
+
+            // Simular procesamiento
+            alert(`✅ Depósito de $${amount} procesado con ${selectedMethod}\n\nNuevo saldo: $${newBalance.toLocaleString()}`);
+
+            // Redirigir al home después del depósito
+            setTimeout(() => {
+                window.location.href = 'menu.html';
+            }, 2000);
+        }
+
+        // Volver atrás con Escape
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                window.history.back();
+            }
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cargar saldo actual desde localStorage si existe
+            const savedBalance = localStorage.getItem('alkeWalletBalance');
+            if (savedBalance) {
+                currentBalance = parseInt(savedBalance);
+            }
+
+            updateBalanceInRealTime();
+        });
+
+        
+    </script>
+</body>
+
+</html>

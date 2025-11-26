@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Dinero - ALKE Wallet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --alke-primary: #d1aac9;
+            --alke-secondary: #f782d0;
+            --alke-dark: #b283e7;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .send-card {
+            background: linear-gradient(135deg, #faf8fa 0%, #eeace0 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--alke-primary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .amount-input {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .amount-input:focus {
+            border-color: var(--alke-primary);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .amount-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .amount-btn:hover {
+            background: var(--alke-primary);
+            color: white;
+            border-color: var(--alke-primary);
+        }
+
+        .send-btn {
+            background: var(--alke-primary);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: var(--alke-dark);
+            transform: translateY(-2px);
+        }
+
+        .contact-list {
+            margin: 25px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item.active {
+            border-color: var(--alke-primary);
+            background: #e3f2fd;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--alke-primary);
+        }
+
+        .wallet-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .wallet-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--alke-primary) 15%, var(--alke-secondary) 90%, var(--alke-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .add-contact-btn {
+            background: var(--alke-secondary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .add-contact-btn:hover {
+            background: var(--alke-dark);
+        }
+
+        .contact-search {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .contact-search:focus {
+            border-color: var(--alke-primary);
+            outline: none;
+        }
+
+        .balance-info {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="send-card">
+        <button class="back-btn" onclick="goToMenu()">
+            <i class="bi bi-arrow-left"></i> Volver al Menú
+        </button>
+
+        <div class="wallet-header text-center">
+            <div class="d-flex align-items-center justify-content-center mb-3">
+                <span class="logo-text">ALKE Wallet</span>
+                <img src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyazdzb2pxMzNxY3VhcHpoN3c2ZG5wdDc1NHNqeHpodXJ4Zmd4M3U3YyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/45C6UzctolDdRFZG14/source.gif"
+                    alt="cinnamoroll-Logo" class="logo-image">
+            </div>
+
+            <h4>Enviar Dinero</h4>
+            <p class="text-muted">Transfiere fondos a tus contactos</p>
+        </div>
+
+        <!-- Información del saldo -->
+        <div class="balance-info">
+            <h6>Saldo disponible</h6>
+            <h4 id="currentBalance">$0</h4>
+        </div>
+
+        <!-- Selección de contacto -->
+        <div class="mb-4">
+            <label for="contactSearch" class="form-label fw-bold">Seleccionar contacto</label>
+            <input type="text" class="contact-search" id="contactSearch" placeholder="Buscar contacto...">
+
+            <div class="contact-list" id="contactList">
+                <!-- Los contactos se cargarán aquí dinámicamente -->
+            </div>
+
+            <button class="add-contact-btn" onclick="showAddContactModal()">
+                <i class="bi bi-person-plus me-2"></i>Agregar nuevo contacto
+            </button>
+        </div>
+
+        <!-- Monto -->
+        <div class="mb-4">
+            <label for="amount" class="form-label fw-bold">Monto a enviar</label>
+            <input type="number" class="form-control amount-input" id="amount" placeholder="$0" min="1" step="1">
+        </div>
+
+        <!-- Montos rápidos -->
+        <div class="quick-amounts">
+            <button class="amount-btn" onclick="setAmount(1000)">$1.000</button>
+            <button class="amount-btn" onclick="setAmount(5000)">$5.000</button>
+            <button class="amount-btn" onclick="setAmount(10000)">$10.000</button>
+            <button class="amount-btn" onclick="setAmount(20000)">$20.000</button>
+            <button class="amount-btn" onclick="setAmount(50000)">$50.000</button>
+            <button class="amount-btn" onclick="setAmount(100000)">$100.000</button>
+        </div>
+
+        <!-- Concepto -->
+        <div class="mb-4">
+            <label for="comentario" class="form-label fw-bold">Comentario (opcional)</label>
+            <input type="text" class="form-control" id="comentario" placeholder="Ej: Pago de servicios, Regalo, etc.">
+        </div>
+
+        <!-- Botón de envío -->
+        <button class="send-btn" onclick="processSend()">
+            <i class="bi bi-send me-2"></i>
+            Enviar Dinero
+        </button>
+    </div>
+
+    <!-- Modal para agregar contacto -->
+    <div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addContactModalLabel">Agregar Nuevo Contacto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addContactForm">
+                        <div class="mb-3">
+                            <label for="contactName" class="form-label">Nombre del contacto</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactBankAccount" class="form-label">Número de cuenta bancaria</label>
+                            <input type="text" class="form-control" id="contactBankAccount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactEmail" class="form-label">Email (opcional)</label>
+                            <input type="email" class="form-control" id="contactEmail">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewContact()">Agregar Contacto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let selectedContact = null;
+        let currentBalance = 0;
+        let contacts = [];
+
+        // Función para volver al menú
+        function goToMenu() {
+            window.location.href = 'menu.html';
+        }
+
+        // Función para establecer el monto
+        function setAmount(amount) {
+            document.getElementById('amount').value = amount;
+            updateSendButton(amount);
+        }
+
+        // Función para seleccionar un contacto
+        function selectContact(contactId) {
+            selectedContact = contacts.find(contact => contact.id === contactId);
+
+            // Remover clase active de todos
+            document.querySelectorAll('.contact-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Agregar clase active al seleccionado
+            event.currentTarget.classList.add('active');
+
+            updateSendButton(document.getElementById('amount').value);
+        }
+
+        // Función para actualizar el botón de envío
+        function updateSendButton(amount) {
+            const sendBtn = document.querySelector('.send-btn');
+
+            if (amount && amount > 0 && selectedContact) {
+                const newBalance = currentBalance - parseInt(amount);
+                if (newBalance >= 0) {
+                    sendBtn.innerHTML = `<i class="bi bi-send me-2"></i>Enviar $${amount} a ${selectedContact.name}`;
+                    sendBtn.disabled = false;
+                } else {
+                    sendBtn.innerHTML = `<i class="bi bi-exclamation-triangle me-2"></i>Saldo insuficiente`;
+                    sendBtn.disabled = true;
+                }
+            } else {
+                sendBtn.innerHTML = `<i class="bi bi-send me-2"></i>Enviar Dinero`;
+                sendBtn.disabled = !(amount && amount > 0 && selectedContact);
+            }
+        }
+
+        // Función para actualizar el saldo en tiempo real
+        function updateBalanceInRealTime() {
+            const amountInput = document.getElementById('amount');
+
+            amountInput.addEventListener('input', function () {
+                updateSendButton(this.value);
+            });
+        }
+
+        // Función para procesar el envío
+        function processSend() {
+            const amount = document.getElementById('amount').value;
+            const comentario = document.getElementById('comentario').value;
+
+            if (!amount || amount <= 0) {
+                alert('Por favor ingresa un monto válido');
+                return;
+            }
+
+            if (!selectedContact) {
+                alert('Por favor selecciona un contacto');
+                return;
+            }
+
+            if (parseInt(amount) > currentBalance) {
+                alert('Saldo insuficiente para realizar esta transacción');
+                return;
+            }
+
+            // Restar el monto del saldo actual
+            const newBalance = currentBalance - parseInt(amount);
+            localStorage.setItem('alkeWalletBalance', newBalance.toString());
+
+            // Guardar información de la transacción
+            const transaction = {
+                id: Date.now(),
+                type: 'send',
+                amount: parseInt(amount),
+                contact: selectedContact.name,
+                comentario: comentario,
+                date: new Date().toLocaleString()
+            };
+
+            // Guardar transacción en el historial
+            let transactions = JSON.parse(localStorage.getItem('alkeWalletTransactions') || '[]');
+            transactions.push(transaction);
+            localStorage.setItem('alkeWalletTransactions', JSON.stringify(transactions));
+
+            // Mostrar confirmación
+            alert(`✅ Envío de $${amount} a ${selectedContact.name} realizado con éxito\n\nNuevo saldo: $${newBalance.toLocaleString()}`);
+
+            // Redirigir al menú después del envío
+            setTimeout(() => {
+                window.location.href = 'menu.html';
+            }, 2000);
+        }
+
+        // Función para mostrar el modal de agregar contacto
+        function showAddContactModal() {
+            const modal = new bootstrap.Modal(document.getElementById('addContactModal'));
+            modal.show();
+        }
+
+        // Función para agregar un nuevo contacto - CORREGIDA
+        function addNewContact() {
+            const name = document.getElementById('contactName').value;
+            const bank_account = document.getElementById('contactBankAccount').value;
+            const email = document.getElementById('contactEmail').value;
+
+            if (!name || !bank_account) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+
+            // Crear nuevo contacto
+            const newContact = {
+                id: Date.now(),
+                name: name,
+                bank_account: bank_account,
+                email: email
+            };
+
+            // Agregar a la lista de contactos
+            contacts.push(newContact);
+            localStorage.setItem('alkeWalletContacts', JSON.stringify(contacts));
+
+            // Cerrar modal y recargar lista de contactos
+            bootstrap.Modal.getInstance(document.getElementById('addContactModal')).hide();
+            loadContacts();
+
+            // Limpiar formulario
+            document.getElementById('addContactForm').reset();
+
+            alert(`Contacto ${name} agregado correctamente`);
+        }
+
+        // Función para cargar contactos - CORREGIDA
+        function loadContacts() {
+            const contactList = document.getElementById('contactList');
+            contactList.innerHTML = '';
+
+            // Filtrar contactos según búsqueda
+            const searchTerm = document.getElementById('contactSearch').value.toLowerCase();
+            const filteredContacts = contacts.filter(contact =>
+                contact.name.toLowerCase().includes(searchTerm) ||
+                (contact.bank_account && contact.bank_account.toString().includes(searchTerm))
+            );
+
+            // Mostrar contactos
+            if (filteredContacts.length === 0) {
+                contactList.innerHTML = '<div class="text-center text-muted py-3">No se encontraron contactos</div>';
+            } else {
+                filteredContacts.forEach(contact => {
+                    const contactItem = document.createElement('div');
+                    contactItem.className = 'contact-item';
+                    contactItem.onclick = () => selectContact(contact.id);
+
+                    contactItem.innerHTML = `
+                        <i class="bi bi-person-circle contact-icon"></i>
+                        <div>
+                            <div class="fw-bold">${contact.name}</div>
+                            <small class="text-muted">${contact.bank_account || 'Sin cuenta'}</small>
+                        </div>
+                    `;
+
+                    contactList.appendChild(contactItem);
+                });
+            }
+        }
+
+        // Función para buscar contactos
+        function setupContactSearch() {
+            const searchInput = document.getElementById('contactSearch');
+            searchInput.addEventListener('input', loadContacts);
+        }
+
+        // Volver atrás con Escape
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                goToMenu();
+            }
+        });
+
+        // Inicializar - CORREGIDO
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🔧 Inicializando página de envío...');
+
+            // Cargar saldo actual desde localStorage
+            const savedBalance = localStorage.getItem('alkeWalletBalance');
+            if (savedBalance) {
+                currentBalance = parseInt(savedBalance);
+                document.getElementById('currentBalance').textContent = `$${currentBalance.toLocaleString()}`;
+                console.log('💰 Saldo cargado:', currentBalance);
+            } else {
+                // Si no existe saldo, establecer uno por defecto
+                currentBalance = 21050;
+                localStorage.setItem('alkeWalletBalance', currentBalance.toString());
+                document.getElementById('currentBalance').textContent = `$${currentBalance.toLocaleString()}`;
+                console.log('💰 Saldo por defecto:', currentBalance);
+            }
+
+            /// BORRAR CONTACTOS VIEJOS PARA PRUEBAS
+            ///localStorage.removeItem('alkeWalletContacts');
+
+            // Cargar contactos desde localStorage
+            const savedContacts = localStorage.getItem('alkeWalletContacts');
+            if (savedContacts) {
+                contacts = JSON.parse(savedContacts);
+                console.log('📱 Contactos cargados desde localStorage:', contacts);
+            } else {
+
+                // Contactos por defecto
+                contacts = [
+                    { id: 1, name: "Kitty", bank_account: "12512456", email: "hellokitty@sanrio.com" },
+                    { id: 2, name: "MyMelody", bank_account: "2378912367", email: "mmelody@sanrio.com" },
+                    { id: 3, name: "Kuromi", bank_account: "345890235678", email: "kuromi666@sanrio.com" }
+                ];
+                localStorage.setItem('alkeWalletContacts', JSON.stringify(contacts));
+                console.log('📱 Contactos por defecto creados:', contacts);
+            }
+
+            loadContacts();
+            setupContactSearch();
+            updateBalanceInRealTime();
+
+            console.log('✅ Página inicializada correctamente');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALKE Wallet - Inicio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --alke-primary: #d1aac9;
+      --alke-secondary: #f395d4;
+      ;
+      --alke-dark: #6b1fc2;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .virtual-card {
+      background: linear-gradient(135deg, var(--alke-primary) 30%, var(--alke-secondary) 70%);
+      border-radius: 20px;
+      padding: 25px;
+      color: white;
+      box-shadow: 0 10px 30px rgba(13, 110, 253, 0.3);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-design {
+    position: absolute;
+    bottom: 10px;  
+    right: 50px;   
+    width: 180px;  
+    height: 180px; 
+    opacity: 0.4; 
+    pointer-events: none;
+    z-index: 1;    /* Esto asegura que esté sobre el fondo */
+}
+
+    .virtual-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .balance-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 5px;
+    }
+
+    .balance-amount {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin: 10px 0;
+      letter-spacing: 1px;
+    }
+
+    .quick-actions {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
+    }
+
+    .action-btn {
+      background: white;
+      border: none;
+      border-radius: 15px;
+      padding: 20px;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      color: var(--alke-primary);
+      text-decoration: none;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .action-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .action-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .simple-menu {
+      background: white;
+      border-radius: 20px;
+      padding: 0;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 20px 25px;
+      border-bottom: 1px solid #f8f9fa;
+      text-decoration: none;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item:hover {
+      background: #f8f9fa;
+    }
+
+    .menu-icon {
+      width: 45px;
+      height: 45px;
+      background: #e3f2fd;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: var(--alke-primary);
+      font-size: 1.3rem;
+    }
+
+    .menu-text {
+      flex: 1;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .wallet-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .wallet-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .logo-text {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--alke-primary) 0%, var(--alke-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-image {
+      width: 80px;
+      height: 120px;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="wallet-header">
+    <div class="wallet-logo">
+      <div class="logo-text">ALKE Wallet</div>
+      <img src="https://i.pinimg.com/originals/44/30/7e/44307eb4a120068376a9997215ae85f3.gif" alt="Hello-Kitty-Logo"
+        class="logo-image">
+    </div>
+  </div>
+
+  <!-- Tarjeta Virtual -->
+  <div class="virtual-card">
+    <img src="https://www.pngall.com/wp-content/uploads/13/My-Melody-PNG-Picture.png" alt="mymelody-logo"
+      class="card-design">
+    <div class="balance-label">Tu saldo es</div>
+    <div class="balance-amount">$21,050</div>
+    <div class="balance-label">ALKE Points: 2,105</div>
+  </div>
+
+  <!-- Acciones rápidas en menú -->
+  <div class="quick-actions">
+    <a href="depositar.html" class="action-btn">
+        <i class="bi bi-plus-circle action-icon"></i>
+        <span class="action-label">Depositar</span>
+    </a>
+    <a href="sendmoney.html" class="action-btn">
+      <i class="bi bi-arrow-up-circle action-icon"></i>
+      <span class="action-label">Enviar dinero</span>
+    </a>
+  </div>
+
+  <!-- Menú Simple -->
+  <div class="simple-menu">
+    <a href="#" class="menu-item">
+      <div class="menu-icon"><i class="bi bi-credit-card"></i></div>
+      <div class="menu-text">Mis tarjetas</div>
+    </a>
+    <a href="#" class="menu-item">
+      <div class="menu-icon"><i class="bi bi-clock-history"></i></div>
+      <div class="menu-text">Transacciones</div>
+    </a>
+    <a href="#" class="menu-item">
+      <div class="menu-icon"><i class="bi bi-gear"></i></div>
+      <div class="menu-text">Configuración</div>
+  </div>
+
+  <script>
+    // Actualizar saldo desde localStorage
+function updateWalletBalance() {
+    const savedBalance = localStorage.getItem('alkeWalletBalance');
+    const lastDeposit = localStorage.getItem('lastDeposit');
+    
+    if (savedBalance) {
+        document.querySelector('.balance-amount').textContent = `$${parseInt(savedBalance).toLocaleString()}`;
+    }
+    
+    // Mostrar notificación de último depósito (opcional)
+    if (lastDeposit) {
+        setTimeout(() => {
+            alert(`✅ Depósito de $${lastDeposit} realizado exitosamente`);
+            localStorage.removeItem('lastDeposit'); // Limpiar después de mostrar
+        }, 500);
+    }
+}
+
+// Llamar cuando la página cargue
+document.addEventListener('DOMContentLoaded', updateWalletBalance);
+  </script>
+</body>
+
+</html>
